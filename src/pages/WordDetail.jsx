@@ -1,14 +1,44 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getAllVocab, db, getMemory, setMemory, addNote, getNotes, deleteNote } from '../utils/storage';
+import { getAllVocab, db, getMemory, setMemory, addNote, getNotes, deleteNote } from '../store/drillStore';
 import { calcNextReview, getLevelLabel } from '../utils/ebbinghaus';
 
+let cachedVoices = null;
+function getVoices() {
+  return new Promise((resolve) => {
+    const synth = window.speechSynthesis;
+    if (!synth) return resolve([]);
+    const voices = synth.getVoices();
+    if (voices.length > 0) return resolve(voices);
+    synth.onvoiceschanged = () => resolve(synth.getVoices());
+    setTimeout(() => resolve(synth.getVoices()), 500);
+  });
+}
+async function speakWord(word) {
+  const synth = window.speechSynthesis;
+  if (!synth) return;
+  synth.cancel();
+  const utter = new SpeechSynthesisUtterance(word);
+  utter.lang = 'en-US';
+  utter.rate = 0.85;
+  utter.pitch = 1.05;
+  if (!cachedVoices || cachedVoices.length === 0) {
+    cachedVoices = await getVoices();
+  }
+  const preferred = cachedVoices.find(v => v.lang === 'en-US' && v.name.includes('Samantha'))
+    || cachedVoices.find(v => v.lang === 'en-US' && v.name.includes('Karen'))
+    || cachedVoices.find(v => v.lang === 'en-US')
+    || cachedVoices.find(v => v.lang.startsWith('en'));
+  if (preferred) utter.voice = preferred;
+  synth.speak(utter);
+}
+
 const POS_COLORS = {
-  n: { bg: '#E8F0F5', text: '#2D5A4A' },
-  v: { bg: '#F5E8E8', text: '#8B3A3A' },
-  adj: { bg: '#F5F0E8', text: '#7A5A2D' },
-  adv: { bg: '#F0E8F5', text: '#5A2D7A' },
-  phrase: { bg: '#E8F5E8', text: '#2D5A2D' },
+  n: { bg: '#D8E8D5', text: '#2D5A4A' },
+  v: { bg: '#F0D8D0', text: '#8B3A3A' },
+  adj: { bg: '#F0E5D0', text: '#7A5A2D' },
+  adv: { bg: '#E5DDF0', text: '#5A3D7A' },
+  phrase: { bg: '#D5ECD5', text: '#2D5A2D' },
 };
 
 let audioCache = {};
@@ -37,6 +67,7 @@ export default function WordDetail() {
         setNotes(n);
       }
       setLoading(false);
+      if (v?.word) speakWord(v.word);
     }
     load();
   }, [wordParam]);
@@ -102,7 +133,7 @@ export default function WordDetail() {
 
   if (loading) {
     return (
-      <div style={{ padding: 24, textAlign: 'center', color: 'var(--ink-tertiary)' }}>
+      <div style={{ padding: 24, textAlign: 'center', color: 'var(--ink-faded)' }}>
         加载中...
       </div>
     );
@@ -112,7 +143,7 @@ export default function WordDetail() {
     return (
       <div style={{ padding: 24, textAlign: 'center' }}>
         <div style={{ fontSize: 48, marginBottom: 8 }}>📭</div>
-        <p style={{ color: 'var(--ink-tertiary)' }}>未找到该单词</p>
+        <p style={{ color: 'var(--ink-faded)' }}>未找到该单词</p>
         <button onClick={() => navigate(-1)} style={{
           marginTop: 8, padding: '6px 16px',
           background: 'var(--paper-base)', border: '1px solid var(--paper-shadow)',
@@ -133,9 +164,8 @@ export default function WordDetail() {
       {/* 顶部导航 */}
       <div style={{
         position: 'sticky', top: 0, zIndex: 100,
-        background: 'rgba(245, 237, 224, 0.98)',
-        backdropFilter: 'blur(8px)',
-        borderBottom: '1px solid var(--paper-shadow)',
+        background: 'var(--paper-surface)',
+        borderBottom: '1px solid var(--border-medium)',
         padding: '8px 16px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
@@ -161,13 +191,22 @@ export default function WordDetail() {
         borderBottom: '1px solid var(--paper-shadow)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-          <h1 style={{
-            fontFamily: 'var(--font-word)',
-            fontSize: '2rem', fontWeight: 700,
-            color: 'var(--ink-primary)', letterSpacing: '0.02em',
-          }}>
-            {vocab.word}
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <h1 style={{
+              fontFamily: 'var(--font-word)',
+              fontSize: '2rem', fontWeight: 700,
+              color: 'var(--ink-primary)', letterSpacing: '0.02em',
+            }}>
+              {vocab.word}
+            </h1>
+            <button onClick={() => speakWord(vocab.word)} title="朗读" style={{
+              width: 32, height: 32, borderRadius: '50%',
+              border: '1px solid var(--border-medium)',
+              background: 'var(--paper-base)', cursor: 'pointer',
+              fontSize: 14, flexShrink: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>🔊</button>
+          </div>
           {isLearned && (
             <span style={{
               padding: '2px 8px',
@@ -185,7 +224,7 @@ export default function WordDetail() {
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 12 }}>
           {vocab.phonetic_uk && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 11, color: 'var(--ink-tertiary)' }}>UK</span>
+              <span style={{ fontSize: 11, color: 'var(--ink-faded)' }}>UK</span>
               <span style={{ fontFamily: 'var(--font-phonetic)', fontSize: 14, color: 'var(--ink-secondary)' }}>
                 {vocab.phonetic_uk}
               </span>
@@ -201,7 +240,7 @@ export default function WordDetail() {
           )}
           {vocab.phonetic_us && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 11, color: 'var(--ink-tertiary)' }}>US</span>
+              <span style={{ fontSize: 11, color: 'var(--ink-faded)' }}>US</span>
               <span style={{ fontFamily: 'var(--font-phonetic)', fontSize: 14, color: 'var(--ink-secondary)' }}>
                 {vocab.phonetic_us}
               </span>
@@ -245,7 +284,7 @@ export default function WordDetail() {
         }}>
           <h2 style={{
             fontSize: 'var(--text-base)', fontWeight: 600,
-            color: 'var(--ink-tertiary)', marginBottom: 12,
+            color: 'var(--ink-faded)', marginBottom: 12,
             textTransform: 'uppercase', letterSpacing: '0.08em',
           }}>
             释义
@@ -261,7 +300,7 @@ export default function WordDetail() {
                   fontWeight: 700,
                   marginRight: 6,
                   background: 'var(--paper-shadow)',
-                  color: 'var(--ink-tertiary)',
+                  color: 'var(--ink-faded)',
                 }}>
                   {def.pos}
                 </span>
@@ -291,7 +330,7 @@ export default function WordDetail() {
         }}>
           <h2 style={{
             fontSize: 'var(--text-base)', fontWeight: 600,
-            color: 'var(--ink-tertiary)', marginBottom: 12,
+            color: 'var(--ink-faded)', marginBottom: 12,
             textTransform: 'uppercase', letterSpacing: '0.08em',
           }}>
             例句
@@ -327,7 +366,7 @@ export default function WordDetail() {
         }}>
           <h2 style={{
             fontSize: 'var(--text-base)', fontWeight: 600,
-            color: 'var(--ink-tertiary)', marginBottom: 12,
+            color: 'var(--ink-faded)', marginBottom: 12,
             textTransform: 'uppercase', letterSpacing: '0.08em',
           }}>
             搭配
@@ -357,7 +396,7 @@ export default function WordDetail() {
         }}>
           <h2 style={{
             fontSize: 'var(--text-base)', fontWeight: 600,
-            color: 'var(--ink-tertiary)', marginBottom: 12,
+            color: 'var(--ink-faded)', marginBottom: 12,
             textTransform: 'uppercase', letterSpacing: '0.08em',
           }}>
             记忆法
@@ -398,7 +437,7 @@ export default function WordDetail() {
         }}>
           <h2 style={{
             fontSize: 'var(--text-base)', fontWeight: 600,
-            color: 'var(--ink-tertiary)', marginBottom: 12,
+            color: 'var(--ink-faded)', marginBottom: 12,
             textTransform: 'uppercase', letterSpacing: '0.08em',
           }}>
             易混淆词辨析
@@ -432,7 +471,7 @@ export default function WordDetail() {
         }}>
           <h2 style={{
             fontSize: 'var(--text-base)', fontWeight: 600,
-            color: 'var(--ink-tertiary)',
+            color: 'var(--ink-faded)',
             textTransform: 'uppercase', letterSpacing: '0.08em',
           }}>
             我的笔记
@@ -480,7 +519,7 @@ export default function WordDetail() {
         )}
 
         {notes.length === 0 && !showNoteEditor && (
-          <p style={{ fontSize: 12, color: 'var(--ink-tertiary)', fontStyle: 'italic' }}>
+          <p style={{ fontSize: 12, color: 'var(--ink-faded)', fontStyle: 'italic' }}>
             还没有笔记，添加第一条吧
           </p>
         )}
@@ -499,7 +538,7 @@ export default function WordDetail() {
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               marginTop: 6,
             }}>
-              <span style={{ fontSize: 11, color: 'var(--ink-tertiary)' }}>
+              <span style={{ fontSize: 11, color: 'var(--ink-faded)' }}>
                 {new Date(n.createdAt || Date.now()).toLocaleDateString('zh-CN')}
               </span>
               <button onClick={() => handleDeleteNote(n.id)} style={{
@@ -516,9 +555,8 @@ export default function WordDetail() {
       {/* 复习操作 */}
       <div style={{
         position: 'fixed', bottom: 72, left: 0, right: 0,
-        background: 'rgba(245, 237, 224, 0.98)',
-        backdropFilter: 'blur(8px)',
-        borderTop: '1px solid var(--paper-shadow)',
+        background: 'var(--paper-surface)',
+        borderTop: '1px solid var(--border-medium)',
         padding: '12px 16px',
         zIndex: 90,
       }}>

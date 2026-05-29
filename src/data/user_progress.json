@@ -1,0 +1,818 @@
+{
+  "mandarin": {
+    "total": 7,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1780000841715
+  },
+  "fracture": {
+    "total": 6,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1780000934534
+  },
+  "increment": {
+    "total": 5,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1780001277077
+  },
+  "intonation": {
+    "total": 4,
+    "correct": 0,
+    "unknownCount": 4,
+    "lastDrill": 1780001280556
+  },
+  "alternation": {
+    "total": 8,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779897102382
+  },
+  "armpit": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899473309
+  },
+  "asia": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779894876545
+  },
+  "blond": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779894534585
+  },
+  "cloth": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779897113216
+  },
+  "condenser": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779895623942
+  },
+  "crash": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899173121
+  },
+  "criticism": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779894118648
+  },
+  "curse": {
+    "total": 1,
+    "correct": 0,
+    "unknownCount": 1,
+    "lastDrill": 1779899694562
+  },
+  "demise": {
+    "total": 8,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899287325
+  },
+  "embryo": {
+    "total": 5,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899402963
+  },
+  "equality": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779897205107
+  },
+  "equipment": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899219226
+  },
+  "gymnastics": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899175389
+  },
+  "improvement": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899056283
+  },
+  "inn": {
+    "total": 6,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899291558
+  },
+  "lieutenant": {
+    "total": 1,
+    "correct": 0,
+    "unknownCount": 1,
+    "lastDrill": 1779899697070
+  },
+  "sound": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779899699671
+  },
+  "windmill": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779897506521
+  },
+  "abstraction": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985675010
+  },
+  "acceptance": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985698956
+  },
+  "achievement": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985962395
+  },
+  "adrenalin": {
+    "total": 5,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987018958
+  },
+  "advocate": {
+    "total": 5,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987015596
+  },
+  "agitation": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986891996
+  },
+  "align": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983058586
+  },
+  "allegiance": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986168295
+  },
+  "amazement": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985923104
+  },
+  "amplifier": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983200441
+  },
+  "army": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983504562
+  },
+  "assertion": {
+    "total": 5,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985842000
+  },
+  "attitude": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779984518627
+  },
+  "axle": {
+    "total": 2,
+    "correct": 2,
+    "unknownCount": 0,
+    "lastDrill": 1779984530412
+  },
+  "backbone": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985554351
+  },
+  "ballot": {
+    "total": 7,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986102569
+  },
+  "beeswax": {
+    "total": 4,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985798687
+  },
+  "berry": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983086365
+  },
+  "bill": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988741720
+  },
+  "biologist": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985667807
+  },
+  "birthplace": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983486621
+  },
+  "bitumen": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988815656
+  },
+  "borehole": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987100409
+  },
+  "borrowings": {
+    "total": 5,
+    "correct": 2,
+    "unknownCount": 0,
+    "lastDrill": 1779986186159
+  },
+  "boutique": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986866925
+  },
+  "breakage": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985539143
+  },
+  "breast": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986992238
+  },
+  "brew": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989455420
+  },
+  "bride": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987050914
+  },
+  "brochure": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985817628
+  },
+  "brunch": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988170462
+  },
+  "bulletin": {
+    "total": 8,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986147954
+  },
+  "bully": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986208960
+  },
+  "buzzword": {
+    "total": 8,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986264811
+  },
+  "calculation": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985881485
+  },
+  "calibre": {
+    "total": 13,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987079270
+  },
+  "camp": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985754573
+  },
+  "canada": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989493714
+  },
+  "cartoons": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989975245
+  },
+  "cavern": {
+    "total": 4,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986964221
+  },
+  "celsius": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983246385
+  },
+  "championship": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986025759
+  },
+  "charcoal": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986287841
+  },
+  "charter": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986192775
+  },
+  "chestnut": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986180565
+  },
+  "chew": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986171267
+  },
+  "city": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986323369
+  },
+  "cluster": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986284921
+  },
+  "coal": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779984012367
+  },
+  "cohesion": {
+    "total": 4,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985792627
+  },
+  "collateral": {
+    "total": 4,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987082712
+  },
+  "columbia": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983122817
+  },
+  "composition": {
+    "total": 5,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986160705
+  },
+  "concentrate": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983526338
+  },
+  "concept": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987094699
+  },
+  "consul": {
+    "total": 3,
+    "correct": 0,
+    "unknownCount": 3,
+    "lastDrill": 1780001292009
+  },
+  "crab": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985594305
+  },
+  "criterion": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989451388
+  },
+  "datum": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988958099
+  },
+  "daytime": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985620428
+  },
+  "destruction": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985590408
+  },
+  "disdain": {
+    "total": 1,
+    "correct": 0,
+    "unknownCount": 1,
+    "lastDrill": 1779989465646
+  },
+  "disregard": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983234587
+  },
+  "dolphin": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779963050510
+  },
+  "empire": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985569476
+  },
+  "etc.": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779984525963
+  },
+  "exclusivity": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986174374
+  },
+  "execution": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779999127422
+  },
+  "exoneration": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986125772
+  },
+  "facet": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986014311
+  },
+  "fellow": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985901963
+  },
+  "foodstuff": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985598135
+  },
+  "formality": {
+    "total": 7,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988417491
+  },
+  "frequency": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779984534320
+  },
+  "frontier": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985862395
+  },
+  "giraffe": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987089040
+  },
+  "goal": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986074756
+  },
+  "goddess": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986088116
+  },
+  "group": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985970418
+  },
+  "hairdress": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986183323
+  },
+  "handicraft": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986377389
+  },
+  "hardware": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987086996
+  },
+  "hemisphere": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989302291
+  },
+  "hire": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989178445
+  },
+  "history": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985694367
+  },
+  "horn": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989325019
+  },
+  "hub": {
+    "total": 4,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986165205
+  },
+  "human": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985380671
+  },
+  "husk": {
+    "total": 5,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987027878
+  },
+  "identification": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779979132252
+  },
+  "identity": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779983217384
+  },
+  "idiosyncrasy": {
+    "total": 6,
+    "correct": 0,
+    "unknownCount": 6,
+    "lastDrill": 1780001273366
+  },
+  "importation": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988825684
+  },
+  "indicator": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779984539844
+  },
+  "innovation": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987055145
+  },
+  "instructor": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779941308155
+  },
+  "instrument": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988918837
+  },
+  "iraqi": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987091963
+  },
+  "jack": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986018004
+  },
+  "jeans": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988750201
+  },
+  "leaf": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779985915482
+  },
+  "lecturer": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989424555
+  },
+  "lioness": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988677064
+  },
+  "lip": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988695099
+  },
+  "lubrication": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779982982248
+  },
+  "maximum": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986421433
+  },
+  "overpayment": {
+    "total": 3,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779982813122
+  },
+  "papaya": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779988829481
+  },
+  "plaza": {
+    "total": 6,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987012339
+  },
+  "rectification": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779987103970
+  },
+  "stimulus": {
+    "total": 1,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779964336130
+  },
+  "ulcer": {
+    "total": 6,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779986109033
+  },
+  "whole": {
+    "total": 2,
+    "correct": 1,
+    "unknownCount": 0,
+    "lastDrill": 1779989420917
+  }
+}

@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&display=swap');
 @import './variables.css';
 
 *, *::before, *::after {
@@ -11,79 +10,149 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--paper-base);
-  color: var(--ink-primary);
-  line-height: 1.8;
+  background-color: var(--paper-bg);
+  color: var(--ink-inverse);
+  line-height: 1.6;
   min-height: 100vh;
+  overflow-x: hidden;
+  animation: breathe-bg 8s ease-in-out infinite;
+}
+
+@keyframes breathe-bg {
+  0%, 100% { background-color: #1C2A21; }
+  25%      { background-color: #253822; }
+  50%      { background-color: #152A26; }
+  75%      { background-color: #233020; }
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 430px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 a {
-  color: inherit;
+  color: var(--lotus);
   text-decoration: none;
 }
 
 button {
-  font-family: inherit;
+  font-family: var(--font-body);
   cursor: pointer;
   border: none;
   background: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input, textarea, select {
-  font-family: inherit;
+  font-family: var(--font-body);
 }
 
-/* 页面-enter动画 */
+/* === 卡片 === */
+.paper-card {
+  background: var(--paper-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-paper);
+  position: relative;
+}
+
+.paper-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--paper-highlight) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.paper-card-subtle {
+  background: var(--paper-base);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-paper);
+}
+
+/* === 按钮 === */
+.paper-btn {
+  background: var(--paper-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-button);
+  color: var(--ink-inverse);
+  transition: all var(--transition-fast);
+}
+
+.paper-btn:hover {
+  background: var(--paper-surface-hover);
+  box-shadow: var(--shadow-button-hover);
+  transform: translateY(-1px);
+}
+
+.paper-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-paper);
+}
+
+.paper-btn-primary {
+  background: var(--btn-primary-bg);
+  color: white;
+  border-color: var(--night-sea);
+  box-shadow: var(--shadow-button);
+}
+
+.paper-btn-primary:hover {
+  background: var(--btn-primary-hover);
+  box-shadow: var(--shadow-button-hover);
+}
+
+/* === 动画 === */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
 .page-enter {
-  animation: fade-in-up var(--transition-page) ease-out;
+  animation: fade-in-up var(--transition-base) ease-out;
 }
 
-/* 正确脉冲 */
-@keyframes correct-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(74, 123, 90, 0.6); }
-  70% { box-shadow: 0 0 0 10px rgba(74, 123, 90, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(74, 123, 90, 0); }
+/* === 选中文本 === */
+::selection {
+  background: rgba(184, 138, 58, 0.30);
+  color: var(--ink-inverse);
 }
 
-/* 错误抖动 */
-@keyframes wrong-shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
-}
-
-/* 纸张纹理背景 */
-.paper-texture {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-attachment: fixed;
-}
-
-/* 滚动条样式 */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--paper-shadow);
-}
-
+/* === 滚动条 === */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--paper-bg-2); }
 ::-webkit-scrollbar-thumb {
-  background: var(--ink-tertiary);
-  border-radius: 3px;
+  background: rgba(184, 138, 58, 0.30);
+  border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ink-secondary);
+  background: rgba(184, 138, 58, 0.50);
 }

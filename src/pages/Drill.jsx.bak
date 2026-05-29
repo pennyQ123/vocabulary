@@ -48,9 +48,8 @@ export default function Drill() {
   const [sessionStats, setSessionStats] = useState({ correct: 0, wrong: 0 });
   const [animating, setAnimating] = useState(false);
   const [noteText, setNoteText] = useState('');
-  const noteSaveTimer = useRef(null);
-  const [notePos, setNotePos] = useState({ x: 0, y: 0 });
-  const noteDragRef = useRef(null);
+  const [noteId, setNoteId] = useState(null);
+  const noteTimerRef = useRef(null);
   const [lastResult, setLastResult] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sessionDone, setSessionDone] = useState(false);
@@ -70,109 +69,48 @@ export default function Drill() {
       total.total = (await import('../data/vocab.json')).default.words
         ? Object.keys((await import('../data/vocab.json')).default.words).length : 0;
       setTotalStats(total);
-      // Sync: restore from file + push local to file
-      try {
-        const res = await fetch('/api/progress');
-        if (res.ok) {
-          const fileProgress = await res.json();
-          // Restore file → IndexedDB
-          for (const [word, p] of Object.entries(fileProgress)) {
-            const existing = await db.drillProgress.get(word);
-            if (!existing || (p.lastDrill || 0) > (existing.lastDrill || 0)) {
-              await db.drillProgress.put({ word, ...p });
-            }
-          }
-          // Push IndexedDB → file (catch up any progress from before file sync existed)
-          const allLocal = await db.drillProgress.toArray();
-          for (const p of allLocal) {
-            if (!fileProgress[p.word] || (p.lastDrill || 0) > (fileProgress[p.word]?.lastDrill || 0)) {
-              await fetch('/api/progress', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ word: p.word, total: p.total, correct: p.correct, unknownCount: p.unknownCount, lastDrill: p.lastDrill }),
-              }).catch(() => {});
-            }
-          }
-        }
-      } catch (e) {}
       setLoading(false);
     }
     build();
   }, []);
 
-  // Load note for current word (from file API first, fallback to IndexedDB)
+  // Load notes when word changes
   useEffect(() => {
-    const w = queue[index]?.word;
-    if (!w) { setNoteText(''); return; }
-    (async () => {
-      try {
-        const res = await fetch('/api/notes?word=' + encodeURIComponent(w));
-        if (res.ok) {
-          const data = await res.json();
-          if (data.content) { setNoteText(data.content); return; }
-        }
-      } catch (e) { /* fallback to IndexedDB */ }
-      // Fallback: load from IndexedDB
-      getNotes(w).then(notes => {
-        setNoteText(notes.length > 0 ? (notes[0].content || '') : '');
-      });
-    })();
-  }, [index, queue]);
+    if (!current?.word) return;
+    getNotes(current.word).then(notes => {
+      if (notes && notes.length > 0) {
+        setNoteText(notes[0].content || '');
+        setNoteId(notes[0].id);
+      } else {
+        setNoteText('');
+        setNoteId(null);
+      }
+    });
+  }, [current?.word]);
 
-  // Save note with debounce (write to file API + IndexedDB)
-  const saveNote = useCallback((word, text) => {
-    if (noteSaveTimer.current) clearTimeout(noteSaveTimer.current);
-    noteSaveTimer.current = setTimeout(async () => {
-      const trimmed = text.trim();
-      // Save to file API
-      try {
-        await fetch('/api/notes', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ word, content: trimmed }),
-        });
-      } catch (e) { /* non-fatal */ }
-      // Also save to IndexedDB
-      try {
-        const existing = await getNotes(word);
-        if (existing.length > 0) {
-          if (trimmed) {
-            await db.notes.update(existing[0].id, { content: trimmed });
-          } else {
-            await db.notes.delete(existing[0].id);
-          }
-        } else if (trimmed) {
-          await addNote({ word, content: trimmed });
+  // Auto-save notes with 500ms debounce
+  useEffect(() => {
+    if (!current?.word) return;
+    if (noteTimerRef.current) clearTimeout(noteTimerRef.current);
+    noteTimerRef.current = setTimeout(async () => {
+      const trimmed = noteText.trim();
+      if (noteId) {
+        // Update existing note
+        await db.notes.update(noteId, { content: trimmed });
+        if (!trimmed) {
+          await db.notes.delete(noteId);
+          setNoteId(null);
         }
-      } catch (e) { /* non-fatal */ }
+      } else if (trimmed) {
+        // Create new note
+        await addNote({ word: current.word, content: trimmed });
+        // Re-fetch to get the auto-generated id
+        const notes = await getNotes(current.word);
+        if (notes.length > 0) setNoteId(notes[0].id);
+      }
     }, 500);
-  }, []);
-
-  // Drag handlers for note panel
-  const handleNoteDragStart = useCallback((e) => {
-    const el = noteDragRef.current;
-    if (!el) return;
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    const startX = clientX - notePos.x;
-    const startY = clientY - notePos.y;
-    const onMove = (ev) => {
-      const cx = ev.touches ? ev.touches[0].clientX : ev.clientX;
-      const cy = ev.touches ? ev.touches[0].clientY : ev.clientY;
-      setNotePos({ x: cx - startX, y: cy - startY });
-    };
-    const onUp = () => {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-      document.removeEventListener('touchmove', onMove);
-      document.removeEventListener('touchend', onUp);
-    };
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-    document.addEventListener('touchmove', onMove, { passive: false });
-    document.addEventListener('touchend', onUp);
-    e.preventDefault();
-  }, [notePos]);
+    return () => clearTimeout(noteTimerRef.current);
+  }, [noteText]);
 
   // 进入 reveal 阶段自动朗读一次
   useEffect(() => {
@@ -190,17 +128,6 @@ export default function Drill() {
     setAnimating(true);
     setPhase('reveal');
     await setDrillResult(current.word, known);
-    // Sync progress to local file
-    try {
-      const prog = await db.drillProgress.get(current.word);
-      if (prog) {
-        fetch('/api/progress', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ word: current.word, total: prog.total, correct: prog.correct, unknownCount: prog.unknownCount, lastDrill: prog.lastDrill }),
-        }).catch(() => {});
-      }
-    } catch (e) {}
     setSessionStats(s => ({
       ...s,
       correct: s.correct + (known ? 1 : 0),
@@ -380,14 +307,15 @@ export default function Drill() {
         </div>
       )}
 
-      {/* Note Panel */}
-      <div className="drill-note-panel" ref={noteDragRef} style={{
+      {/* Note Panel — left side */}
+      <div className="drill-note-panel" style={{
         position: 'absolute',
-        left: 'max(8px, calc((100vw - 760px) / 2))',
+        left: `max(8px, calc((100vw - 760px) / 2))`,
         top: 120,
         width: 200,
         zIndex: 5,
-        transform: `translate(${notePos.x}px, ${notePos.y}px)`,
+        display: 'flex',
+        flexDirection: 'column',
       }}>
         <div style={{
           background: 'var(--paper-surface)',
@@ -396,20 +324,15 @@ export default function Drill() {
           padding: 12,
           boxShadow: 'var(--shadow-paper)',
         }}>
-          <div
-            onMouseDown={handleNoteDragStart}
-            onTouchStart={handleNoteDragStart}
-            style={{
-              fontFamily: 'var(--font-title)', fontSize: 11,
-              color: 'var(--ink-faded)', fontWeight: 600,
-              letterSpacing: '0.12em', textTransform: 'uppercase',
-              marginBottom: 8, cursor: 'grab',
-              userSelect: 'none',
-            }}
-          >⠿ 笔记</div>
+          <div style={{
+            fontFamily: 'var(--font-title)', fontSize: 11,
+            color: 'var(--ink-faded)', fontWeight: 600,
+            letterSpacing: '0.12em', textTransform: 'uppercase',
+            marginBottom: 8,
+          }}>笔记</div>
           <textarea
             value={noteText}
-            onChange={e => { setNoteText(e.target.value); saveNote(current?.word, e.target.value); }}
+            onChange={e => setNoteText(e.target.value)}
             placeholder="写点笔记..."
             style={{
               width: '100%',

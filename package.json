@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cmu-pronouncing-dictionary": "^3.0.0",
     "dexie": "^4.4.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.15.1"
+    "react-router-dom": "^7.15.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
